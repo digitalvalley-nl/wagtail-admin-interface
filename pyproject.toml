@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wagtail-admin-interface"
+version = "0.0.1"
+authors = [
+  { name="Digital Valley", email="techteam@digitalvalley.nl" }
+]
+description = "Wagtail Admin Interface makes it easier to customize the admin interface of the Wagtail content management system."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Framework :: Wagtail",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3"
+]

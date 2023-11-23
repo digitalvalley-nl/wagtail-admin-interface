@@ -1,0 +1,27 @@
+{% extends "wagtailadmin/generic/base.html" %}
+
+{% block content %}
+    {{ block.super }}
+    {{ settings }}
+    <script>
+      /* Hide group object permisions that are not whitelisted */
+      WagtailAdminInterface.initHiddenGroupObjectPermissions = function() {
+        if (!('HIDDEN_GROUP_OBJECT_PERMISSIONS' in WagtailAdminInterface)) {
+          return;
+        }
+
+        const groupForm = document.querySelector('[action^="/groups/"]');
+        if (groupForm === null) {
+          return;
+        }
+
+        const permissions = groupForm.querySelector('#object-permissions-content').querySelectorAll('[name="permissions"]');
+        for (permission of permissions) {
+          if (WagtailAdminInterface.HIDDEN_GROUP_OBJECT_PERMISSIONS.includes(parseInt(permission.value))) {
+            permission.closest('tr').style.display = 'none';
+          }
+        }
+      };
+      WagtailAdminInterface.initHiddenGroupObjectPermissions();
+    </script>
+{% endblock %}
