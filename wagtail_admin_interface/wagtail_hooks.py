@@ -17,7 +17,8 @@ def construct_main_menu(request, menu_items):
         return
 
     # Hide main menu items that are not whitelisted
-    if 'HIDDEN_MAIN_MENU_ITEMS' in settings.WAGTAIL_ADMIN_INTERFACE:
+    if 'HIDDEN_MAIN_MENU_ITEMS' in settings.WAGTAIL_ADMIN_INTERFACE \
+            and settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_MAIN_MENU_ITEMS'] is not None:
         menu_items[:] = [menu_item for menu_item in menu_items if menu_item.name not in settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_MAIN_MENU_ITEMS']]
 
 
@@ -27,7 +28,8 @@ def construct_settings_menu(request, menu_items):
         return
 
     # Hide settings menu items that are not whitelisted
-    if 'HIDDEN_SETTINGS_MENU_ITEMS' in settings.WAGTAIL_ADMIN_INTERFACE:
+    if 'HIDDEN_SETTINGS_MENU_ITEMS' in settings.WAGTAIL_ADMIN_INTERFACE \
+            and settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_SETTINGS_MENU_ITEMS'] is not None:
         menu_items[:] = [menu_item for menu_item in menu_items if menu_item.name not in settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_SETTINGS_MENU_ITEMS']]
 
 
@@ -39,7 +41,8 @@ def insert_global_admin_js():
         return
 
     # Hide group object permisions that are not whitelisted
-    if 'HIDDEN_GROUP_OBJECT_PERMISSIONS' in settings.WAGTAIL_ADMIN_INTERFACE:
+    if 'HIDDEN_GROUP_OBJECT_PERMISSIONS' in settings.WAGTAIL_ADMIN_INTERFACE \
+            and settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_GROUP_OBJECT_PERMISSIONS'] is not None:
         permissions = Permission.objects.filter(content_type__model__in=settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_GROUP_OBJECT_PERMISSIONS'])
         data['HIDDEN_GROUP_OBJECT_PERMISSIONS'] = [permission.id for permission in permissions]
 
