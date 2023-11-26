@@ -40,6 +40,11 @@ def insert_global_admin_js():
     if not hasattr(settings, 'WAGTAIL_ADMIN_INTERFACE'):
         return
 
+    # Hide the root page in the crumb trail
+    if 'HIDE_ROOT_PAGE_IN_CRUMB_TRAIL' in settings.WAGTAIL_ADMIN_INTERFACE \
+            and settings.WAGTAIL_ADMIN_INTERFACE['HIDE_ROOT_PAGE_IN_CRUMB_TRAIL']:
+        data['HIDE_ROOT_PAGE_IN_CRUMB_TRAIL'] = True
+
     # Hide group object permisions that are not whitelisted
     if 'HIDDEN_GROUP_OBJECT_PERMISSIONS' in settings.WAGTAIL_ADMIN_INTERFACE \
             and settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_GROUP_OBJECT_PERMISSIONS'] is not None:

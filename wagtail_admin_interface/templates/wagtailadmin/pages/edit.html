@@ -1,0 +1,8 @@
+{% extends "wagtailadmin/pages/edit.html" %}
+
+{% block bodyclass %}
+  {{ block.super }}
+  {% if WAGTAIL_ADMIN_INTERFACE.HIDE_ROOT_PAGE_IN_CRUMB_TRAIL and request.path == WAGTAIL_ADMIN_INTERFACE.REDIRECT_ROOT_PAGE_TO|add:"edit/" %}
+    wagtail-admin-interface--hide-crumb-trail-toggle
+  {% endif %}
+{% endblock %}
