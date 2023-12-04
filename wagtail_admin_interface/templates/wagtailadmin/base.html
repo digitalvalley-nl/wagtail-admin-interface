@@ -23,6 +23,10 @@
         }
 
         const breadCrumbs = document.querySelector('.w-breadcrumbs');
+        if (breadCrumbs === null) {
+          return;
+        }
+
         breadCrumbs.querySelectorAll('[href="/pages/"]').forEach((rootPageAnchor) => {
           rootPageAnchor.parentNode.remove();
         });
