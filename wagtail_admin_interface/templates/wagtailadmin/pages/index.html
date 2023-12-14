@@ -2,7 +2,7 @@
 
 {% block bodyclass %}
   {{ block.super }}
-  {% if WAGTAIL_ADMIN_INTERFACE.HIDE_ROOT_PAGE_IN_CRUMB_TRAIL and request.path == WAGTAIL_ADMIN_INTERFACE.REDIRECT_ROOT_PAGE_TO %}
+  {% if request.path == WAGTAIL_ADMIN_INTERFACE.SINGLE_SITE.HOME_PAGE_URL or request.path == WAGTAIL_ADMIN_INTERFACE.SINGLE_SITE.LAYOUT_PAGE_URL %}
     wagtail-admin-interface--hide-crumb-trail-toggle
   {% endif %}
 {% endblock %}
