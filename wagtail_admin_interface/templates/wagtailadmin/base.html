@@ -51,10 +51,28 @@
         }
       };
 
+      /* Hide the editor tab bar if there is only a single tab */
+      WagtailAdminInterface.initHideEditorTabBarIfSingleTab = function() {
+        console.log(WagtailAdminInterface);
+        if (!('HIDE_EDITOR_TAB_BAR_IF_SINGLE_TAB' in WagtailAdminInterface)) {
+          return;
+        }
+
+        if (!WagtailAdminInterface.HIDE_EDITOR_TAB_BAR_IF_SINGLE_TAB) {
+          return;
+        }
+
+        const tabs = document.querySelectorAll('.w-tabs__tab');
+        if (tabs.length < 2) {
+          document.querySelector('.w-tabs__wrapper').style.height = 0;
+        }
+      }
+
       /* Initialize the Wagtail Admin Interface features */
       WagtailAdminInterface.init = function() {
         WagtailAdminInterface.initHideCrumbTrailInRootInterface();
         WagtailAdminInterface.initHiddenGroupObjectPermissions();
+        WagtailAdminInterface.initHideEditorTabBarIfSingleTab();
       }
       WagtailAdminInterface.init();
     </script>

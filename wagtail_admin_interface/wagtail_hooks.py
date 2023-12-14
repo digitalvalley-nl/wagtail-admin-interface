@@ -51,4 +51,9 @@ def insert_global_admin_js():
         permissions = Permission.objects.filter(content_type__model__in=settings.WAGTAIL_ADMIN_INTERFACE['HIDDEN_GROUP_OBJECT_PERMISSIONS'])
         data['HIDDEN_GROUP_OBJECT_PERMISSIONS'] = [permission.id for permission in permissions]
 
+    # Hide the editor tab bar if there is only a single tab
+    if 'HIDE_EDITOR_TAB_BAR_IF_SINGLE_TAB' in settings.WAGTAIL_ADMIN_INTERFACE \
+            and settings.WAGTAIL_ADMIN_INTERFACE['HIDE_EDITOR_TAB_BAR_IF_SINGLE_TAB']:
+        data['HIDE_EDITOR_TAB_BAR_IF_SINGLE_TAB'] = True
+
     return mark_safe('<script>const WagtailAdminInterface = ' + json.dumps(data)  + ';</script>')
