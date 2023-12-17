@@ -5,8 +5,10 @@ from django.contrib.auth.models import Permission
 
 # Wagtail
 from wagtail import hooks
-from wagtail.admin.menu import MenuItem
 from wagtail.models import Page
+
+# Wagtail Admin Interface
+from wagtail_admin_interface.menu import LayoutMenuItem
 
 
 @hooks.register('construct_main_menu')
@@ -22,11 +24,7 @@ def construct_main_menu(request, menu_items):
 
 @hooks.register('register_settings_menu_item')
 def register_settings_menu_item():
-    if not hasattr(settings, 'WAGTAIL_ADMIN_INTERFACE'):
-        return
-
-    if 'SINGLE_SITE' in settings.WAGTAIL_ADMIN_INTERFACE:
-        return MenuItem('Layout', '/pages/' + str(settings.WAGTAIL_ADMIN_INTERFACE['SINGLE_SITE']['LAYOUT_PAGE_ID']) + '/edit/', icon_name='globe', order=0)
+    return LayoutMenuItem()
 
 
 @hooks.register('construct_settings_menu')
@@ -63,10 +61,17 @@ def insert_global_admin_css():
             .w-breadcrumbs nav li:first-child {{
               display: none;
             }}
-            .c-page-explorer__item:has([href="/pages/''' + str(settings.WAGTAIL_ADMIN_INTERFACE['SINGLE_SITE']['LAYOUT_PAGE_ID']) + '''/"]) {{
-              display: none;
-            }}
         ''')
+
+        if 'LAYOUT_PAGE_ID' in settings.WAGTAIL_ADMIN_INTERFACE['SINGLE_SITE']:
+            css.append('''
+                #listing-results tr:has(#page_''' + str(settings.WAGTAIL_ADMIN_INTERFACE['SINGLE_SITE']['LAYOUT_PAGE_ID']) + '''_title) {{
+                    display: none;
+                }}
+                .c-page-explorer__item:has([href="/pages/''' + str(settings.WAGTAIL_ADMIN_INTERFACE['SINGLE_SITE']['LAYOUT_PAGE_ID']) + '''/"]) {{
+                  display: none;
+                }}
+            ''')
 
     hidden_object_group_permissions = []
     if 'SINGLE_SITE' in settings.WAGTAIL_ADMIN_INTERFACE:
